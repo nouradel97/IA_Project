@@ -1,0 +1,20 @@
+{
+   "name": "IA_Project",
+   "version": "0.0.1",
+   "description": "Awesome project developed with TypeORM.",
+   "devDependencies": {
+      "ts-node": "3.3.0",
+      "@types/node": "^8.0.29",
+      "typescript": "2.5.2"
+   },
+   "dependencies": {
+      "express": "^4.16.4",
+      "mysql": "^2.14.1",
+      "path": "^0.12.7",
+      "reflect-metadata": "^0.1.10",
+      "typeorm": "0.2.9"
+   },
+   "scripts": {
+      "start": "ts-node src/index.ts"
+   }
+}
