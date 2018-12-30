@@ -1,5 +1,6 @@
 var createError = require('http-errors');
 var express = require('express');
+const session = require('express-session');
 var path = require('path');
 var app = express();
 
@@ -12,6 +13,7 @@ app.use(express.static(path.join(__dirname, '../public')));
 app.set('views', path.join(__dirname, '../public/views'));
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
+app.use(session({secret: "I have a serious confession..."}));
 
 const login_signup = require('./controllers/login-signup');
 
