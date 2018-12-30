@@ -35,17 +35,23 @@ $(document).ready(function () {
             '    <tr><td>age: </td><td><input type="text" name="age" id="age"></td>\n' +
             '      <td>phone number: </td><td><input type="text" name="phone" id="phone"></td></tr>\n' +
             '    \n' +
-            '    <tr><td>username: </td><td><input type="text" name="username" id="user"></td>\n' +
-            '      <td>email: </td><td><input type="text" name="email" id="email"></td></tr>\n' +
+            '    <tr>\n <td>email: </td><td><input type="text" name="email" id="email"></td></tr>\n' +
             '    \n' +
             '    <tr><td>password: </td><td><input type="password" name="username" id="password"></td>\n' +
             '    <td>  confirm password: </td><td><input type="password" name="confirm_pass" id="confirm_pass"></td></tr>\n' +
-            '    \n <tr><td><input type="submit" id="btn_signUp"></td></tr>'+
+            '    \n <tr><td><input type="submit" value="Sign Up" id="btn_signUp" onclick="validateSignup()"></td>' +
+            '<td><input type="submit" value="back" id="back"></td></tr>'+
             '  </form></table></center>';
 
         $('#form').hide();
         $('#sign').append(form);
         $('#sign').show();
+
+        $('#back').click(function () {
+            $('#sign').empty();
+            $('#sign').append(document.getElementById('form'));
+            $('#form').show();
+        });
 
         var new_user = {
             'email': $('#email').val(),

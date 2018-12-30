@@ -5,16 +5,17 @@
     <title>Welcome</title>
     <script src="../javascript/jquery/dist/jquery.js"></script>
     <script src="../javascript/loginScript.js"></script>
+    <script src="../javascript/SignUpValidateion.js"></script>
 </head>
 <body>
 <center>
     <div id="sign">
     <form id="form">
-        username: <input type="text" name="username" id="email"><br>
+        email: <input type="text" name="username" id="email"><br>
         password: <input type="password" name="pass" id="pass"><br>
-        <input type="button" name="submit" value="Login" id="btn">
-
-        <input type="button" name="signUp" value="signUp" id="signUp">
+        <input type="submit" name="submit" value="Login" id="btn" onclick= "return valiedLogin()">
+return
+        <input type="submit" name="signUp" value="signUp" id="signUp">
     </form>
     </div>
 </center>
