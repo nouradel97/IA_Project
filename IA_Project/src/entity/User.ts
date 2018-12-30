@@ -1,18 +1,29 @@
-import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
+import {Entity, PrimaryColumn, Column} from "typeorm";
 
 @Entity()
 export class User {
 
-    @PrimaryGeneratedColumn()
-    id: number;
+    @PrimaryColumn()
+    email: string = "";
 
     @Column()
-    firstName: string;
+    firstName: string = "";
 
     @Column()
-    lastName: string;
+    lastName: string = "";
 
     @Column()
-    age: number;
+    age: number = 12;
 
+    @Column()
+    phoneNumber: number = 123456;
+
+    @Column()
+    password: string = "";
+
+    @Column()
+    cv: string = "";
+
+    @Column()
+    isApproved: boolean = false;
 }

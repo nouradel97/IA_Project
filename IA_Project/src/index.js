@@ -52,7 +52,7 @@ typeorm_1.createConnection().then(function (connection) { return __awaiter(_this
                 return [4 /*yield*/, connection.manager.save(user)];
             case 1:
                 _a.sent();
-                console.log("Saved a new user with id: " + user.id);
+                console.log("Saved a new user with id: " + user.email);
                 console.log("Loading users from the database...");
                 return [4 /*yield*/, connection.manager.find(User_1.User)];
             case 2:

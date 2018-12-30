@@ -12,11 +12,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var typeorm_1 = require("typeorm");
 var User = /** @class */ (function () {
     function User() {
+        this.email = "";
+        this.firstName = "";
+        this.lastName = "";
+        this.age = 12;
+        this.phoneNumber = 123456;
+        this.password = "";
+        this.cv = "";
+        this.isApproved = false;
     }
     __decorate([
-        typeorm_1.PrimaryGeneratedColumn(),
-        __metadata("design:type", Number)
-    ], User.prototype, "id", void 0);
+        typeorm_1.PrimaryColumn(),
+        __metadata("design:type", String)
+    ], User.prototype, "email", void 0);
     __decorate([
         typeorm_1.Column(),
         __metadata("design:type", String)
@@ -29,6 +37,22 @@ var User = /** @class */ (function () {
         typeorm_1.Column(),
         __metadata("design:type", Number)
     ], User.prototype, "age", void 0);
+    __decorate([
+        typeorm_1.Column(),
+        __metadata("design:type", Number)
+    ], User.prototype, "phoneNumber", void 0);
+    __decorate([
+        typeorm_1.Column(),
+        __metadata("design:type", String)
+    ], User.prototype, "password", void 0);
+    __decorate([
+        typeorm_1.Column(),
+        __metadata("design:type", String)
+    ], User.prototype, "cv", void 0);
+    __decorate([
+        typeorm_1.Column(),
+        __metadata("design:type", Boolean)
+    ], User.prototype, "isApproved", void 0);
     User = __decorate([
         typeorm_1.Entity()
     ], User);
