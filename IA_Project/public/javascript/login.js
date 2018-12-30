@@ -8,8 +8,15 @@ $(document).ready(function () {
         };
         var data = JSON.stringify(user);
 
-        $.post({
-            url: "login",
+        if(user.email === "" || user.password === "") {
+            alert("lolololololiiiiiiii");
+            return;
+        }
+
+        $('form').submit(false);
+        $.ajax({
+            type: "post",
+            url: "/login",
             data: data,
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',

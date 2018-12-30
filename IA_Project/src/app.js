@@ -3,22 +3,17 @@ var express = require('express');
 var path = require('path');
 var app = express();
 
-var connect = require('typeorm');
-
-connect.createConnection().then(async connect =>{
-    console.log('db is connected');
-}).catch(error => console.log('error',error));
+var typeorm = require('typeorm');
 
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 
 app.use(express.static(path.join(__dirname, '../public')));
-// view engine setup
 app.set('views', path.join(__dirname, '../public/views'));
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 
-const login_signUp = require('./controllers/login-signUp');
+const login_signup = require('./controllers/login-signup');
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -26,19 +21,19 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.get('/', function(req, res, next) {
-    res.render('login-page.html');
+    res.sendFile(path.join(__dirname, '/login-page.html'));
 });
 
 app.get('/home', function (req, res) {
-    res.render('home-page.html');
+    res.sendFile(path.join(__dirname, '/home-page.html'));
 });
 
 app.post('/login', function (req, res) {
-    login_signUp.login(req,res);
+    login_signup.login(req,res);
 });
 
 app.post('/register', function (req, res) {
-   login_signUp.register(req,res);
+   login_signup.register(req,res);
 });
 
 // catch 404 and forward to error handler
@@ -57,8 +52,12 @@ app.use(function(err, req, res, next) {
     res.send('/error.html');
 });
 
-app.listen(3000, function () {
-    console.log("server is running up !!");
+typeorm.createConnection().then(async (connection) => {
+
+    app.listen(3000, function () {
+        console.log("server is running up !!");
+    });
+
 });
 
 module.exports = app;
