@@ -25,29 +25,38 @@ $(document).ready(function () {
 
     $('#signUp').click(function () {
 
-        var form = ' </center>\n' +
+        var form = ' <center>\n' +
             '\n' +
-            '  <table>\n' +
+            '  <table> <form id="signupForm">\n' +
             '    \n' +
-            '    <tr><td>first name: </td><input type="text" name="fname" id="fname">\n' +
-            '      <td>last name: </td><input type="text" name="lname" id="lname"></tr>\n' +
+            '    <tr><td>first name: </td><td><input type="text" name="fname" id="fname"></td>\n' +
+            '      <td>last name: </td><td><input type="text" name="lname" id="lname"></td></tr>\n' +
             '    \n' +
-            '    <tr><td>age: </td><input type="text" name="age" id="age">\n' +
-            '      <td>phone number: </td><input type="text" name="phone" id="phone"></tr></tr>\n' +
+            '    <tr><td>age: </td><td><input type="text" name="age" id="age"></td>\n' +
+            '      <td>phone number: </td><td><input type="text" name="phone" id="phone"></td></tr>\n' +
             '    \n' +
-            '    <tr><td>username: </td><input type="text" name="username" id="user">\n' +
-            '      <td>email: </td><input type="text" name="email" id="email"></tr>\n' +
+            '    <tr><td>username: </td><td><input type="text" name="username" id="user"></td>\n' +
+            '      <td>email: </td><td><input type="text" name="email" id="email"></td></tr>\n' +
             '    \n' +
-            '    <tr><td>password: </td><input type="password" name="username" id="password">\n' +
-            '      confirm password: <input type="password" name="confirm_pass" id="confirm_pass"></tr>\n' +
-            '    \n' +
-            '  </table>';
+            '    <tr><td>password: </td><td><input type="password" name="username" id="password"></td>\n' +
+            '    <td>  confirm password: </td><td><input type="password" name="confirm_pass" id="confirm_pass"></td></tr>\n' +
+            '    \n <tr><td><input type="submit" id="btn_signUp"></td></tr>'+
+            '  </form></table></center>';
 
-        form.show();
+        $('#form').hide();
+        $('#sign').append(form);
+        $('#sign').show();
+
         var new_user = {
             'email': $('#email').val(),
-            'password': $('#pass').val()
+            'password': $('#password').val(),
+            'fname': $('#fname'),
+            'lname': $('#lname'),
+            'age': $('#age'),
+            'phoneNumber': $('#phone'),
+            'username': $('#username')
         };
+
         var data = JSON.stringify(new_user);
 
         $.post({
