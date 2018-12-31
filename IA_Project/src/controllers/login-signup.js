@@ -8,18 +8,19 @@ var path = require('path');
 function login(req, res) {
 
     const uRepo = typeorm.getRepository(User);
-    uRepo.findOne(req.body.email).then( async (user) => {
+    uRepo.findOne(req.body.email).then(async (user) => {
 
         if (user === undefined) {
             res.send({'code': 400, 'success': 'email and password does not match'});
         } else {
             req.session.email = user.email;
-            if(user.type === 'Candidate')
+            if (user.type === 'Candidate')
                 res.send({'code': 200, 'success': '/home'});
             else
                 res.send({'code': 200, 'success': '/hr-home'});
         }
     })
+}
 
 function register(req, res) {
 
