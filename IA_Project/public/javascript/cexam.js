@@ -8,10 +8,11 @@ $(document).ready(()=>{
             success: (userExam) => {
                 alert(JSON.stringify(userExam));
                 $('#form1').text(userExam.exam.name);
-                userExam.questions.forEach((questionDetails) => {
-                    $('form').append('<p>${questionDetails.question.name}</p>');
-                    questionDetails.answers.forEach(answer => {
-                        let html = '<input type="radio" id="${answer.id}" value="${answer.id}"> <label for="${answer.id}" id="lblAns">${answer.name}</label>';
+                userExam.questions.forEach((question) => {
+                    $('form').append('<p>${question.description}</p>');
+                    question.answers.forEach((answer )=> {
+                        let html = '<input type="radio" id="${answer.aId}" value="${answer.aId}"> ' +
+                            '<label for="${answer.aId}" id="label">${answer.description}</label>';
                         $('form').append(html);
                     });
                 });
