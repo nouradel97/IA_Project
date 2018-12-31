@@ -48,7 +48,7 @@ app.use(function(req, res, next) {
 });
 */
 
-app.get('/', function(req, res) {
+app.get('/examLinks', function(req, res) {
     res.sendFile(path.join(__dirname,'/ExamsLinks.html'));
 });
 
