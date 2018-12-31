@@ -14,7 +14,7 @@ var Question_1 = require("./Question");
 
 var GeneratedQuestion_1 = require("./GeneratedQuestion");
 
-*/ (function () {
+var Answer = (function () {
     function Answer() {
     }
     __decorate([

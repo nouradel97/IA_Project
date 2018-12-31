@@ -1,22 +1,26 @@
 $(document).ready(function () {
-    let da = {HR: 'HR1', Application: 'application1'};
-    $('#myPositions').hide();
+
     $('#ch1').click(function () {
         alert("choice");
     });
+
     $.ajax({
         url: "/getInfo",
         type: "POST",
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         success: (data) => {
-            $('#show').html('<p>' + data.firstName + '<br>'
-                + data.lastName + '<br>' + data.email + '<br>' + data.age +
-                '<br>' + data.phoneNumber + '</p>');
+
+            $('#show').html('<table style="margin: 10px"> ' +
+                '<tr><td>' + data.firstName + '</td></tr>'
+                +'<tr><td>' + data.lastName + '</td></tr>' +
+                '<tr><td>' + data.email + '</td></tr><tr>' +
+                '<tr><td>' + data.age + '</td></tr> '+
+                '</td></tr><tr><td>' + data.phoneNumber + '</td></tr></table>');
         }
     });
 
-    $('#myPositions').click(function () {
+    $('#myRequests').click(function () {
 
         let table = "<table id='table1' class='container'>"
             + "<th>HR</th>"
@@ -44,7 +48,7 @@ $(document).ready(function () {
         });
         table += "</table>";
         $('#AllApplications').html(table);
-        $('#myPositions').show();
+        $('#myRequests').show();
     });
 
 
@@ -56,7 +60,7 @@ $(document).ready(function () {
             + "<th>Application</th>" +
             "<th>Register</th>"
             +"</thead><tbody id='tbbody'></tbody></table>";
-        $('#allApplications').append(table);
+
         $.ajax({
             type: 'post',
             url: "/getAllPositions",
@@ -64,6 +68,7 @@ $(document).ready(function () {
             contentType: 'application/json; charset=utf-8',
             success: (data) => {
 
+                console.log(data);
                 for (var i = 0; i < data.length; i++) {
 
                     console.log(data[i]);

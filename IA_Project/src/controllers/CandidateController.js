@@ -15,7 +15,7 @@ function viewInfo(req, res) {
     })
 }
 
-function getAllRequests(req, res) {
+function getAllPositions(req, res) {
 
     const rRepo = typeorm.getRepository(Position);
 
@@ -63,4 +63,4 @@ function startExam(req, res){
     })
 }
 
-module.exports = { makeRequest, viewInfo, startExam, getAllRequests}
+module.exports = { makeRequest, viewInfo, startExam, getAllPositions}

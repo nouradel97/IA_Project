@@ -4,7 +4,6 @@ var Candidate =  require("../entity/Candidate").Candidate;
 const typeorm = require("typeorm");
 const User = require('../entity/User').User;
 var path = require('path');
-const session = require('express-session');
 
 function login(req, res) {
 
@@ -21,6 +20,7 @@ function login(req, res) {
                 res.send({'code': 200, 'success': '/hr-home'});
         }
     })
+}
 
 function register(req, res) {
 
@@ -41,16 +41,12 @@ function register(req, res) {
             user.password = req.body.password;
             user.firstName = req.body.firstName;
             user.lastName = req.body.lastName;
-            user.age = req.body.age;
+            user.age = parseInt(req.body.age);
             user.cv = req.body.cv;
             user.type = req.body.type;
 
             uRepo.save(user);
-            if(user.type === 'Candidate'){
-                res.redirect('/');
-            }else{
-                res.redirect('/hr-home');
-            }
+            res.send({'code': 200, 'success': '/'});
 
         var result = new User();
         result = await connection.manager.findOne(User, user);
