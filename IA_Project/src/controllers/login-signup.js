@@ -13,28 +13,24 @@ function login(req, res) {
         }
     })
 
-
 }
 
 function register(req, res) {
 
-    const user = new User();
-    user.email = req.body.email;
-    user.password = req.body.password;
+    const uRepo = typeorm.getRepository(User);
+    uRepo.findOne(req.body.email).then( async (user) => {
+        if(user === undefined) {
+            const user = new User();
+            user.email = req.body.email;
+            user.password = req.body.password;
 
-    connection.createConnection().then(async (connection) =>{
-
-        var result = new User();
-        result = await connection.manager.findOne(User, user);
-
-        if(result !== undefined){
-            res.send({'message' : 'this account already exist !!'});
-        }else{
-            await connection.manager.save(user);
+            uRepo.save(user);
             res.redirect('/');
+
+        } else {
+            res.send({'message' : 'this account already exist !!'});
         }
-        connection.close();
-    }).catch(error => console.log('error', error));
+    });
 
 }
 

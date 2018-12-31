@@ -1,15 +1,18 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var app = express();
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+let app = express();
+const bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-var typeorm = require('typeorm');
+const typeorm = require('typeorm');
 
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
 
 app.use(express.static(path.join(__dirname, '../public')));
-app.set('views', path.join(__dirname, '../public/views'));
+// app.set('views', path.join(__dirname, '../views'));
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 
@@ -20,14 +23,17 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+
+/*
 app.get('/', function(req, res, next) {
     res.sendFile(path.join(__dirname, '/login-page.html'));
-});
-
+});*/
+/*
 app.get('/home', function (req, res) {
-    res.sendFile(path.join(__dirname, '/home-page.html'));
+    res.render('home-page', { email:"lol"});
 });
-
+*/
+/*
 app.post('/login', function (req, res) {
     login_signup.login(req,res);
 });
@@ -40,7 +46,12 @@ app.post('/register', function (req, res) {
 app.use(function(req, res, next) {
     next(createError(404));
 });
-
+*/
+/*
+app.get('/', function(req, res) {
+    res.sendFile(path.join('C:\\Users\\asala\\Documents\\GitHub\\IA_Project\\IA_Project\\views\\ExamsLinks.html'));
+});*/
+/*
 // error handler
 app.use(function(err, req, res, next) {
     // set locals, only providing error in development
@@ -51,6 +62,7 @@ app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.send('/error.html');
 });
+*/
 
 typeorm.createConnection().then(async (connection) => {
 
@@ -60,4 +72,6 @@ typeorm.createConnection().then(async (connection) => {
 
 });
 
-module.exports = app;
+module.exports = {app};
+const application=require('./default');
+
