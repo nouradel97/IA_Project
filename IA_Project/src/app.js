@@ -7,14 +7,10 @@ var session = require('express-session');
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
 const typeorm = require('typeorm');
 
-var candidate = require('./controllers/CandidateController');
-var hr = require('./controllers/HR-Controller');
-
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
 
 app.use(express.static(path.join(__dirname, '../public')));
 // app.set('views', path.join(__dirname, '../views'));
@@ -22,12 +18,7 @@ app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 
 const login_signup = require('./controllers/login-signup');
-
-app.use(session({
-    secret: 'I have a serious confession to make...',
-    resave: false,
-    saveUninitialized: true,
-}));
+const createExam=require('./controllers/createExam');
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -43,20 +34,7 @@ app.get('/hr-home', function(req, res, next) {
 });
 
 app.get('/home', function (req, res) {
-    res.sendFile(path.join(__dirname, '/candidate.html'));
-});
-
-app.post('/getInfo', function (req, res) {
-    candidate.viewInfo(req, res);
-});
-
-app.post('/getAllPositions', function (req, res) {
-    candidate.getAllRequests(req, res);
-});
-
-app.get('/register', function (req, res) {
-    res.sendFile(path.join(__dirname, '/register.html'));
-
+    res.render('home-page', { email:"lol"});
 });
 app.post('/login', function (req, res) {
     login_signup.login(req,res);
@@ -66,18 +44,19 @@ app.post('/register', function (req, res) {
    login_signup.register(req,res);
 });
 
-app.post("/addPosition",function (req,res) {
-    hr.addPosition(req,res);
-});
-
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     next(createError(404));
 });
 
-/*app.get('/', function(req, res) {
-    res.sendFile(path.join( __dirname + '/ExamsLinks.html'));
-});*/
+app.get('/examLinks', function(req, res) {
+    res.sendFile(path.join(__dirname,'/ExamsLinks.html'));
+});
+
+app.post('/exam',function (req,res) {
+    createExam.createExam(req,res);
+});
+
 // error handler
 app.use(function(err, req, res, next) {
     // set locals, only providing error in development
@@ -98,5 +77,5 @@ typeorm.createConnection().then(async (connection) => {
 });
 
 module.exports = {app};
-const application=require('./default');
+//const application=require('./default');
 

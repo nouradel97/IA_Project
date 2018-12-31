@@ -20,7 +20,6 @@ function login(req, res) {
                 res.send({'code': 200, 'success': '/hr-home'});
         }
     })
-}
 
 function register(req, res) {
 
@@ -47,11 +46,19 @@ function register(req, res) {
             uRepo.save(user);
             res.send({'code': 200, 'success': '/'});
 
-        } else {
-            res.send({'message' : 'this account already exist !!'});
-        }
-    });
+        var result = new User();
+        result = await connection.manager.findOne(User, user);
 
+        if(result !== undefined){
+            res.send({'message' : 'this account already exist !!'});
+        }else{
+            await connection.manager.save(user);
+            res.redirect('/');
+        }
+        connection.close();
+    }).catch(error => console.log('error', error));
+
+}
 }
 
 module.exports = { login, register };
