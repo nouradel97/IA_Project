@@ -1,7 +1,7 @@
 $(document).ready(()=>{
     $('#java').click(()=>{
         $.ajax({
-            url: 'exam',
+            url: '/exam',
             type: "POST",
             data:  $('#java').val() ,
             dataType: 'json',
