@@ -56,12 +56,14 @@ var User = /** @class */ (function () {
         __metadata("design:type", Boolean)
     ], User.prototype, "isApproved", void 0);
     __decorate([
-
+        typeorm_1.OneToMany(function (type) { return ExamDetails_1.ExamDetails; }, function (examDetails) { return examDetails.user; }),
+        __metadata("design:type", Array)
+    ], User.prototype, "examDetails", void 0);
+    __decorate([
         typeorm_1.Column({ default: '' }),
         __metadata("design:type", String)
     ], User.prototype, "type", void 0);
-
-  User = __decorate([
+    User = __decorate([
         typeorm_1.Entity()
     ], User);
     return User;

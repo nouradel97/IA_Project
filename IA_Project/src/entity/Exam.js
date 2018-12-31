@@ -29,10 +29,8 @@ var Exam = /** @class */ (function () {
         __metadata("design:type", Array)
     ], Exam.prototype, "questions", void 0);
     __decorate([
-
-      typeorm_1.OneToOne(function (type) { return ExamDetails_1.ExamDetails; }, function (examDetails) { return examDetails.exam; }),
+        typeorm_1.OneToOne(function (type) { return ExamDetails_1.ExamDetails; }, function (examDetails) { return examDetails.exam; }),
         __metadata("design:type", ExamDetails_1.ExamDetails)
-
     ], Exam.prototype, "examDetails", void 0);
     Exam = __decorate([
         typeorm_1.Entity()
