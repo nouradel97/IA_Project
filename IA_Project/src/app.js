@@ -12,6 +12,12 @@ const typeorm = require('typeorm');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 
+app.use(session({
+    secret: 'I have a serious confession to make...',
+    resave: false,
+    saveUninitialized: true,
+}));
+
 app.use(express.static(path.join(__dirname, '../public')));
 // app.set('views', path.join(__dirname, '../views'));
 app.engine('html', require('ejs').renderFile);
@@ -31,6 +37,10 @@ app.get('/', function(req, res, next) {
 
 app.get('/hr-home', function(req, res, next) {
     res.sendFile(path.join(__dirname, '/hr-home.html'));
+});
+
+app.get('/register', function(req, res, next) {
+    res.sendFile(path.join(__dirname, '/register.html'));
 });
 
 app.get('/home', function (req, res) {
