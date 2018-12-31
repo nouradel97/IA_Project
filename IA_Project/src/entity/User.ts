@@ -1,4 +1,5 @@
-import {Entity, PrimaryColumn, Column} from "typeorm";
+import {Entity, PrimaryColumn, Column, OneToMany} from "typeorm";
+import {ExamDetails} from "./ExamDetails";
 
 @Entity()
 export abstract class User {
@@ -27,6 +28,12 @@ export abstract class User {
     @Column()
     isApproved: boolean = false;
 
+
+    @OneToMany(type =>ExamDetails,examDetails=> examDetails.user)
+    examDetails:ExamDetails[];
+
+
     @Column({default: ''})
     type: string = "";
+
 }

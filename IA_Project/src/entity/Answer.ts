@@ -1,5 +1,6 @@
-import {Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne, ManyToMany} from "typeorm";
 import {Question} from"./Question";
+import {GeneratedQuestion} from "./GeneratedQuestion";
 
 @Entity()
 export class Answer {
@@ -15,4 +16,7 @@ export class Answer {
 
     @ManyToOne(type => Question,question => question.answers)
     question:Question;
+
+    @ManyToMany(type =>GeneratedQuestion,generatedQuestion=>generatedQuestion.answers )
+    generatedQuestion:GeneratedQuestion[];
 }

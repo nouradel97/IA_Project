@@ -12,32 +12,31 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var typeorm_1 = require("typeorm");
 var Question_1 = require("./Question");
 var ExamDetails_1 = require("./ExamDetails");
-var Exam = /** @class */ (function () {
-    function Exam() {
+var Answer_1 = require("./Answer");
+var GeneratedQuestion = /** @class */ (function () {
+    function GeneratedQuestion() {
     }
     __decorate([
         typeorm_1.PrimaryGeneratedColumn(),
         __metadata("design:type", Number)
-    ], Exam.prototype, "id", void 0);
+    ], GeneratedQuestion.prototype, "id", void 0);
     __decorate([
-        typeorm_1.Column({ length: 1024 }),
-        __metadata("design:type", String)
-    ], Exam.prototype, "name", void 0);
-    __decorate([
-        typeorm_1.OneToMany(function (type) { return Question_1.Question; }, function (question) { return question.exam; }),
-        typeorm_1.JoinColumn(),
-        __metadata("design:type", Array)
-    ], Exam.prototype, "questions", void 0);
-    __decorate([
-
-      typeorm_1.OneToOne(function (type) { return ExamDetails_1.ExamDetails; }, function (examDetails) { return examDetails.exam; }),
+        typeorm_1.ManyToOne(function (type) { return ExamDetails_1.ExamDetails; }, function (examDetails) { return examDetails.generatedQuestions; }),
         __metadata("design:type", ExamDetails_1.ExamDetails)
-
-    ], Exam.prototype, "examDetails", void 0);
-    Exam = __decorate([
+    ], GeneratedQuestion.prototype, "examDetails", void 0);
+    __decorate([
+        typeorm_1.ManyToOne(function (type) { return Question_1.Question; }),
+        __metadata("design:type", Question_1.Question)
+    ], GeneratedQuestion.prototype, "question", void 0);
+    __decorate([
+        typeorm_1.ManyToMany(function (type) { return Answer_1.Answer; }, function (answer) { return answer.generatedQuestion; }),
+        typeorm_1.JoinTable(),
+        __metadata("design:type", Array)
+    ], GeneratedQuestion.prototype, "answers", void 0);
+    GeneratedQuestion = __decorate([
         typeorm_1.Entity()
-    ], Exam);
-    return Exam;
+    ], GeneratedQuestion);
+    return GeneratedQuestion;
 }());
-exports.Exam = Exam;
-//# sourceMappingURL=Exam.js.map
+exports.GeneratedQuestion = GeneratedQuestion;
+//# sourceMappingURL=GeneratedQuestion.js.map
