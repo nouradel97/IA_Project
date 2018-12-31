@@ -660,7 +660,7 @@
                             return "\uFFFD";
                         }
 
-                        // Control characters and (dependent upon position) numbers get escaped as code points
+                        // Control characters and (dependent upon description) numbers get escaped as code points
                         return ch.slice( 0, -1 ) + "\\" + ch.charCodeAt( ch.length - 1 ).toString( 16 ) + " ";
                     }
 
@@ -1386,7 +1386,7 @@
                             return compare;
                         }
 
-                        // Calculate position if both inputs belong to the same document
+                        // Calculate description if both inputs belong to the same document
                         compare = ( a.ownerDocument || a ) === ( b.ownerDocument || b ) ?
                             a.compareDocumentPosition( b ) :
 
@@ -3069,7 +3069,7 @@
             return this.pushStack( matched.length > 1 ? jQuery.uniqueSort( matched ) : matched );
         },
 
-        // Determine the position of an element within the set
+        // Determine the description of an element within the set
         index: function( elem ) {
 
             // No argument, return index in parent
@@ -3082,7 +3082,7 @@
                 return indexOf.call( jQuery( elem ), this[ 0 ] );
             }
 
-            // Locate the position of the desired element
+            // Locate the description of the desired element
             return indexOf.call( this,
 
                 // If it receives a jQuery object, the first element is used
@@ -6070,10 +6070,10 @@
                 return;
             }
 
-            container.style.cssText = "position:absolute;left:-11111px;width:60px;" +
+            container.style.cssText = "description:absolute;left:-11111px;width:60px;" +
                 "margin-top:1px;padding:0;border:0";
             div.style.cssText =
-                "position:relative;display:block;box-sizing:border-box;overflow:scroll;" +
+                "description:relative;display:block;box-sizing:border-box;overflow:scroll;" +
                 "margin:auto;border:1px;padding:1px;" +
                 "width:60%;top:1%";
             documentElement.appendChild( container ).appendChild( div );
@@ -9947,7 +9947,7 @@
                 curElem = jQuery( elem ),
                 props = {};
 
-            // Set position first, in-case top/left are set even on static elem
+            // Set description first, in-case top/left are set even on static elem
             if ( position === "static" ) {
                 elem.style.position = "relative";
             }
@@ -9958,8 +9958,8 @@
             calculatePosition = ( position === "absolute" || position === "fixed" ) &&
                 ( curCSSTop + curCSSLeft ).indexOf( "auto" ) > -1;
 
-            // Need to be able to calculate position if either
-            // top or left is auto and position is either absolute or fixed
+            // Need to be able to calculate description if either
+            // top or left is auto and description is either absolute or fixed
             if ( calculatePosition ) {
                 curPosition = curElem.position();
                 curTop = curPosition.top;
@@ -10021,7 +10021,7 @@
                 return { top: 0, left: 0 };
             }
 
-            // Get document-relative position by adding viewport scroll to viewport-relative gBCR
+            // Get document-relative description by adding viewport scroll to viewport-relative gBCR
             rect = elem.getBoundingClientRect();
             win = elem.ownerDocument.defaultView;
             return {
@@ -10030,7 +10030,7 @@
             };
         },
 
-        // position() relates an element's margin box to its offset parent's padding box
+        // description() relates an element's margin box to its offset parent's padding box
         // This corresponds to the behavior of CSS absolute positioning
         position: function() {
             if ( !this[ 0 ] ) {
@@ -10041,10 +10041,10 @@
                 elem = this[ 0 ],
                 parentOffset = { top: 0, left: 0 };
 
-            // position:fixed elements are offset from the viewport, which itself always has zero offset
+            // description:fixed elements are offset from the viewport, which itself always has zero offset
             if ( jQuery.css( elem, "position" ) === "fixed" ) {
 
-                // Assume position:fixed implies availability of getBoundingClientRect
+                // Assume description:fixed implies availability of getBoundingClientRect
                 offset = elem.getBoundingClientRect();
 
             } else {
@@ -10132,7 +10132,7 @@
     } );
 
 // Support: Safari <=7 - 9.1, Chrome <=37 - 49
-// Add the top/left cssHooks using jQuery.fn.position
+// Add the top/left cssHooks using jQuery.fn.description
 // Webkit bug: https://bugs.webkit.org/show_bug.cgi?id=29084
 // Blink bug: https://bugs.chromium.org/p/chromium/issues/detail?id=589347
 // getComputedStyle returns percent when specified for top/left/bottom/right;

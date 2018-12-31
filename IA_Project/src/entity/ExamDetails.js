@@ -11,8 +11,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var typeorm_1 = require("typeorm");
 var Exam_1 = require("./Exam");
+
 var User_1 = require("./User");
 var GeneratedQuestion_1 = require("./GeneratedQuestion");
+
 var ExamDetails = /** @class */ (function () {
     function ExamDetails() {
     }
@@ -22,12 +24,15 @@ var ExamDetails = /** @class */ (function () {
     ], ExamDetails.prototype, "id", void 0);
     __decorate([
         typeorm_1.OneToOne(function (type) { return Exam_1.Exam; }, function (exam) { return exam.examDetails; }),
+      
         __metadata("design:type", Exam_1.Exam)
     ], ExamDetails.prototype, "exam", void 0);
+
     __decorate([
         typeorm_1.Column({ length: 1024 }),
         __metadata("design:type", String)
     ], ExamDetails.prototype, "type", void 0);
+  
     __decorate([
         typeorm_1.ManyToOne(function (type) { return User_1.User; }, function (user) { return user.examDetails; }),
         __metadata("design:type", User_1.User)
@@ -36,6 +41,7 @@ var ExamDetails = /** @class */ (function () {
         typeorm_1.OneToMany(function (type1) { return GeneratedQuestion_1.GeneratedQuestion; }, function (generatedQuestion) { return generatedQuestion.examDetails; }),
         __metadata("design:type", Array)
     ], ExamDetails.prototype, "generatedQuestions", void 0);
+
     ExamDetails = __decorate([
         typeorm_1.Entity()
     ], ExamDetails);

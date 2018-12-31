@@ -10,34 +10,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var typeorm_1 = require("typeorm");
-var Question_1 = require("./Question");
-var ExamDetails_1 = require("./ExamDetails");
-var Exam = /** @class */ (function () {
-    function Exam() {
+var HR_Account_1 = require("./HR_Account");
+var Position = /** @class */ (function () {
+    function Position() {
     }
     __decorate([
         typeorm_1.PrimaryGeneratedColumn(),
         __metadata("design:type", Number)
-    ], Exam.prototype, "id", void 0);
+    ], Position.prototype, "id", void 0);
     __decorate([
-        typeorm_1.Column({ length: 1024 }),
+        typeorm_1.Column(),
         __metadata("design:type", String)
-    ], Exam.prototype, "name", void 0);
+    ], Position.prototype, "description", void 0);
     __decorate([
-        typeorm_1.OneToMany(function (type) { return Question_1.Question; }, function (question) { return question.exam; }),
-        typeorm_1.JoinColumn(),
-        __metadata("design:type", Array)
-    ], Exam.prototype, "questions", void 0);
-    __decorate([
-
-      typeorm_1.OneToOne(function (type) { return ExamDetails_1.ExamDetails; }, function (examDetails) { return examDetails.exam; }),
-        __metadata("design:type", ExamDetails_1.ExamDetails)
-
-    ], Exam.prototype, "examDetails", void 0);
-    Exam = __decorate([
+        typeorm_1.ManyToOne(function (type) { return HR_Account_1.HR_Account; }, function (hr) { return hr.positions; }),
+        __metadata("design:type", HR_Account_1.HR_Account)
+    ], Position.prototype, "hr", void 0);
+    Position = __decorate([
         typeorm_1.Entity()
-    ], Exam);
-    return Exam;
+    ], Position);
+    return Position;
 }());
-exports.Exam = Exam;
-//# sourceMappingURL=Exam.js.map
+exports.Position = Position;
+//# sourceMappingURL=Position.js.map

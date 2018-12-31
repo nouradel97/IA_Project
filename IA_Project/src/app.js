@@ -8,8 +8,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const typeorm = require('typeorm');
 
-const logger = require('morgan');
-const cookieParser = require('cookie-parser');
+var candidate = require('./controllers/CandidateController');
+var hr = require('./controllers/HR-Controller');
+
+var logger = require('morgan');
+var cookieParser = require('cookie-parser');
 
 app.use(express.static(path.join(__dirname, '../public')));
 // app.set('views', path.join(__dirname, '../views'));
@@ -18,19 +21,37 @@ app.set('view engine', 'html');
 
 const login_signup = require('./controllers/login-signup');
 
+app.use(session({
+    secret: 'I have a serious confession to make...',
+    resave: false,
+    saveUninitialized: true,
+}));
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 
-/*
 app.get('/', function(req, res, next) {
-    res.sendFile(path.join(__dirname, '/login-page.html'));
-});*/
-/*
+    res.sendFile(path.join(__dirname, '/login.html'));
+});
+
 app.get('/home', function (req, res) {
-    res.render('home-page', { email:"lol"});
+    res.sendFile(path.join(__dirname, '/candidate.html'));
+});
+
+app.post('/getInfo', function (req, res) {
+    candidate.viewInfo(req, res);
+});
+
+app.post('/getAllPositions', function (req, res) {
+    candidate.getAllRequests(req, res);
+});
+
+app.get('/register', function (req, res) {
+    res.sendFile(path.join(__dirname, '/register.html'));
+
 });
 */
 /*
@@ -40,6 +61,10 @@ app.post('/login', function (req, res) {
 
 app.post('/register', function (req, res) {
    login_signup.register(req,res);
+});
+
+app.post("/addPosition",function (req,res) {
+    hr.addPosition(req,res);
 });
 
 // catch 404 and forward to error handler
