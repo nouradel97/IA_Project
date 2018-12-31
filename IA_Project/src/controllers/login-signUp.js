@@ -3,6 +3,7 @@ var Candidate =  require("../entity/Candidate").Candidate;
 
 const typeorm = require("typeorm");
 const User = require('../entity/User').User;
+const session = require('express-session');
 var path = require('path');
 const session = require('express-session');
 
@@ -15,12 +16,12 @@ function login(req, res) {
             res.send({'code': 400, 'success': 'email and password does not match'});
         } else {
             req.session.email = user.email;
-            if(user.type === 'Candidate')
-                res.send({'code': 200, 'success': '/home'});
-            else
-                res.send({'code': 200, 'success': '/hr-home'});
+            res.send({'code': 200, 'success': '/home'});
         }
     })
+
+
+}
 
 function register(req, res) {
 
@@ -51,18 +52,6 @@ function register(req, res) {
             }else{
                 res.redirect('/hr-home');
             }
-
-        var result = new User();
-        result = await connection.manager.findOne(User, user);
-
-        if(result !== undefined){
-            res.send({'message' : 'this account already exist !!'});
-        }else{
-            await connection.manager.save(user);
-            res.redirect('/');
-        }
-        connection.close();
-    }).catch(error => console.log('error', error));
 
 }
 }

@@ -1,10 +1,8 @@
-const createError = require('http-errors');
-const express = require('express');
-const path = require('path');
-let app = express();
-const bodyParser = require('body-parser');
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+var createError = require('http-errors');
+var express = require('express');
+const session = require('express-session');
+var path = require('path');
+var app = express();
 
 const typeorm = require('typeorm');
 
@@ -18,6 +16,7 @@ app.use(express.static(path.join(__dirname, '../public')));
 // app.set('views', path.join(__dirname, '../views'));
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
+app.use(session({secret: "I have a serious confession..."}));
 
 const login_signup = require('./controllers/login-signup');
 
