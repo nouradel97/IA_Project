@@ -20,10 +20,12 @@ function login(req, res) {
                 res.send({'code': 200, 'success': '/hr-home'});
         }
     })
+}
 
 function register(req, res) {
 
     const uRepo = typeorm.getRepository(User);
+
 
     uRepo.findOne(req.body.email).then( async (user) => {
 
@@ -56,9 +58,8 @@ function register(req, res) {
             res.redirect('/');
         }
         connection.close();
-    }).catch(error => console.log('error', error));
+    }}).catch(error => console.log('error', error));
 
-}
 }
 
 module.exports = { login, register };

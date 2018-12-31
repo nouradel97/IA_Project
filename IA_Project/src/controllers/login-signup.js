@@ -58,9 +58,8 @@ function register(req, res) {
             res.redirect('/');
         }
         connection.close();
-    }).catch(error => console.log('error', error));
+    }}).catch(error => console.log('error', error));
 
-}
 }
 
 module.exports = { login, register };
