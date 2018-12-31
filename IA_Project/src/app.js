@@ -33,11 +33,15 @@ app.get('/', function(req, res, next) {
 });
 
 app.get('/home', function (req, res) {
-    res.sendFile(path.join(__dirname, '/home-page.html'));
+    res.sendFile(path.join(__dirname, '/candidate.html'));
 });
 
 app.post('/getInfo', function (req, res) {
     candidate.viewInfo(req, res);
+});
+
+app.post('/getAllPositions', function (req, res) {
+    candidate.getAllRequests(req, res);
 });
 
 app.get('/register', function (req, res) {

@@ -1,6 +1,6 @@
-import {Position} from "../entity/Position";
-import {PositionRequest} from "../entity/PositionRequest";
-import {Exam} from "../entity/Exam";
+var Position =  require("../entity/Position").Position;
+var PositionRequest = require("../entity/PositionRequest").PositionRequest;
+var Exam = require("../entity/Exam").Exam;
 
 const typeorm = require("typeorm");
 const User = require('../entity/User').User;
@@ -11,8 +11,17 @@ function viewInfo(req, res) {
     const uRepo = typeorm.getRepository(User);
     uRepo.findOne(req.session.email).then(async (user) => {
         
-        res.send({'data' : JSON.stringify(user)});
+        res.send(JSON.stringify(user));
     })
+}
+
+function getAllRequests(req, res) {
+
+    const rRepo = typeorm.getRepository(Position);
+
+    rRepo.find().then(async (positions) => {
+        res.send(JSON.stringify(positions));
+    });
 }
 
 function makeRequest(req, res) {
@@ -54,4 +63,4 @@ function startExam(req, res){
     })
 }
 
-module.exports = { makeRequest, viewInfo, startExam}
+module.exports = { makeRequest, viewInfo, startExam, getAllRequests}

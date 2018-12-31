@@ -1,6 +1,6 @@
-import {HR_Account} from "../entity/HR_Account";
-import {PositionRequest} from "../entity/PositionRequest";
-import {Position} from "../entity/Position";
+var HR_Account = require("../entity/HR_Account");
+var PositionRequest = require("../entity/PositionRequest");
+var Position = require("../entity/Position");
 
 const typeorm = require("typeorm");
 const User = require('../entity/User').User;
