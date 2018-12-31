@@ -2,6 +2,8 @@ const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 let app = express();
+var session = require('express-session');
+
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -32,9 +34,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-
 app.get('/', function(req, res, next) {
     res.sendFile(path.join(__dirname, '/login.html'));
+});
+
+app.get('/hr-home', function(req, res, next) {
+    res.sendFile(path.join(__dirname, '/hr-home.html'));
 });
 
 app.get('/home', function (req, res) {
@@ -53,8 +58,6 @@ app.get('/register', function (req, res) {
     res.sendFile(path.join(__dirname, '/register.html'));
 
 });
-*/
-/*
 app.post('/login', function (req, res) {
     login_signup.login(req,res);
 });
@@ -71,12 +74,10 @@ app.post("/addPosition",function (req,res) {
 app.use(function(req, res, next) {
     next(createError(404));
 });
-*/
-/*
-app.get('/', function(req, res) {
-    res.sendFile(path.join('C:\\Users\\asala\\Documents\\GitHub\\IA_Project\\IA_Project\\views\\ExamsLinks.html'));
+
+/*app.get('/', function(req, res) {
+    res.sendFile(path.join( __dirname + '/ExamsLinks.html'));
 });*/
-/*
 // error handler
 app.use(function(err, req, res, next) {
     // set locals, only providing error in development
@@ -87,7 +88,6 @@ app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.send('/error.html');
 });
-*/
 
 typeorm.createConnection().then(async (connection) => {
 

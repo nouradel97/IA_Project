@@ -1,17 +1,22 @@
 function validateSignup() {
 
-    var email = document.getElementById('email');
-    var passsword = document.getElementById('pass');
-    var lname = document.getElementById('lname');
-    var fname = document.getElementById('fname');
-    var age = document.getElementById('age');
-    var phone = document.getElementById('phone');
+    var email = document.forms['form1']['email'].value;
+    var passsword = document.forms['form1']['pass'].value;
+    var pass_confirm = document.forms['form1']['pass_confirm'].value;
+    var fname = document.forms['form1']['fname'].value;
+    var lname = document.forms['form1']['lname'].value;
+    var age = document.forms['form1']['age'].value;
 
     if(email === "" || passsword === "" || lname === "" || fname === "" || age === ""){
-        alert('please complete all fields');
-        return
+        alert('something error!!, try again');
+        return false;
+    }
+    else if(passsword !== pass_confirm) {
+        alert('password and password confirmation ara not equals!!');
+        return false;
     }
 
+    return true;
 }
 
 $(document).ready(function () {
@@ -28,7 +33,6 @@ $(document).ready(function () {
             return;
         }
 
-        //$('form').submit(false);
         $.ajax({
             type: "post",
             url: "/login",
@@ -45,8 +49,11 @@ $(document).ready(function () {
         });
     });
 
-    $('#form').submit(false);
     $('#regbtn').click(function () {
+
+        if(!validateSignup())
+            return;
+
         var new_user = {
             'email': $('#email').val(),
             'password': $('#pass').val(),
@@ -60,13 +67,15 @@ $(document).ready(function () {
 
         var data = JSON.stringify(new_user);
 
-        $.post({
+        $.ajax({
+            type: 'post',
             url: "/register",
             data: data,
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             success: function (data) {
-                alert(data.message);
+                if (data.code === 200)
+                    window.location.replace(data.success);
             }
         });
     });
