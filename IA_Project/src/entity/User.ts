@@ -1,7 +1,7 @@
 import {Entity, PrimaryColumn, Column} from "typeorm";
 
 @Entity()
-export class User {
+export abstract class User {
 
     @PrimaryColumn()
     email: string = "";
@@ -26,4 +26,7 @@ export class User {
 
     @Column()
     isApproved: boolean = false;
+
+    @Column({default: ''})
+    type: string = "";
 }

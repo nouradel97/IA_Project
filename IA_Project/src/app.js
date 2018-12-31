@@ -1,10 +1,12 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
+const session = require('express-session');
 var app = express();
 
 var typeorm = require('typeorm');
 
+var candidate = require('./controllers/CandidateController');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 
@@ -15,17 +17,31 @@ app.set('view engine', 'html');
 
 const login_signup = require('./controllers/login-signup');
 
+app.use(session({
+    secret: 'I have a serious confession to make...',
+    resave: false,
+    saveUninitialized: true,
+}));
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.get('/', function(req, res, next) {
-    res.sendFile(path.join(__dirname, '/login-page.html'));
+    res.sendFile(path.join(__dirname, '/login.html'));
 });
 
 app.get('/home', function (req, res) {
     res.sendFile(path.join(__dirname, '/home-page.html'));
+});
+
+app.post('/getInfo', function (req, res) {
+    candidate.viewInfo(req, res);
+});
+
+app.get('/register', function (req, res) {
+    res.sendFile(path.join(__dirname, '/register.html'));
 });
 
 app.post('/login', function (req, res) {

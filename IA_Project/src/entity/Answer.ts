@@ -13,6 +13,6 @@ export class Answer {
     @Column()
     isCorrect:boolean;
 
-    @ManyToOne(type => Question,question=>question.answers)
+    @ManyToOne(type => Question,question => question.answers)
     question:Question;
 }
