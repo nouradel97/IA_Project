@@ -7,6 +7,8 @@ var app = express();
 var typeorm = require('typeorm');
 
 var candidate = require('./controllers/CandidateController');
+var hr = require('./controllers/HR-Controller');
+
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 
@@ -54,6 +56,10 @@ app.post('/login', function (req, res) {
 
 app.post('/register', function (req, res) {
    login_signup.register(req,res);
+});
+
+app.post("/addPosition",function (req,res) {
+    hr.addPosition(req,res);
 });
 
 // catch 404 and forward to error handler
