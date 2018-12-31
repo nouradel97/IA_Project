@@ -1,11 +1,10 @@
-import {Column, Entity, PrimaryColumn} from "typeorm";
+import {Column, Entity, OneToMany, PrimaryColumn} from "typeorm";
+import {User} from "./User";
+import {Position} from "./Position";
 
 @Entity()
-export class HR_Account {
+export class HR_Account extends User{
 
-    @PrimaryColumn()
-    email: string;
-
-    @Column()
-    pass: string;
+    @OneToMany(type => Position, position => position.hr)
+    positions: Position[];
 }

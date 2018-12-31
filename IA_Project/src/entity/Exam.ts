@@ -14,6 +14,6 @@ export class Exam{
     @JoinColumn()
     questions:Question[];
 
-    @OneToOne(type => ExamDetails,examDetails=>examDetails.exams)
-    examDetails:ExamDetails[];
+    @OneToOne(type => ExamDetails,examDetails=>examDetails.exam)
+    examDetails:ExamDetails;
 }
