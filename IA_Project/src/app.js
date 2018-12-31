@@ -5,7 +5,6 @@ let app = express();
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
 const typeorm = require('typeorm');
 
 const logger = require('morgan');
@@ -17,6 +16,7 @@ app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 
 const login_signup = require('./controllers/login-signup');
+const createExam=require('./controllers/createExam');
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -47,10 +47,14 @@ app.use(function(req, res, next) {
     next(createError(404));
 });
 */
-/*
+
 app.get('/', function(req, res) {
-    res.sendFile(path.join('C:\\Users\\asala\\Documents\\GitHub\\IA_Project\\IA_Project\\views\\ExamsLinks.html'));
-});*/
+    res.sendFile(path.join(__dirname,'/ExamsLinks.html'));
+});
+
+app.post('/exam',function (req,res) {
+    createExam.createExam(req,res);
+});
 /*
 // error handler
 app.use(function(err, req, res, next) {
@@ -73,5 +77,5 @@ typeorm.createConnection().then(async (connection) => {
 });
 
 module.exports = {app};
-const application=require('./default');
+//const application=require('./default');
 
