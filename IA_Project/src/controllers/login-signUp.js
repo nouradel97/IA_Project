@@ -49,7 +49,7 @@ function register(req, res) {
             res.send({'code': 200, 'success': '/'});
 
         var result = new User();
-        result = await connection.manager.findOne(User, user);
+        result = await uRepo.findOne(User, user);
 
         if(result !== undefined){
             res.send({'message' : 'this account already exist !!'});
