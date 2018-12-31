@@ -1,6 +1,7 @@
 var HR_Account = require("../entity/HR_Account").HR_Account;
 var Candidate =  require("../entity/Candidate").Candidate;
 
+const session = require('express-session');
 const typeorm = require("typeorm");
 const User = require('../entity/User').User;
 var path = require('path');
@@ -48,12 +49,12 @@ function register(req, res) {
             res.send({'code': 200, 'success': '/'});
 
         var result = new User();
-        result = await connection.manager.findOne(User, user);
+        result = await uRepo.findOne(User, user);
 
         if(result !== undefined){
             res.send({'message' : 'this account already exist !!'});
         }else{
-            await connection.manager.save(user);
+            await uRepo.save(user);
             res.redirect('/');
         }
         connection.close();
