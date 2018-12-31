@@ -1,5 +1,7 @@
-import {Entity, Column, ManyToMany, JoinTable, ManyToOne, PrimaryGeneratedColumn, OneToOne} from "typeorm";
+import {Entity, Column, ManyToMany, JoinTable, ManyToOne, PrimaryGeneratedColumn, OneToOne, OneToMany} from "typeorm";
 import {Exam} from"./Exam";
+import {User} from "./User";
+import {GeneratedQuestion} from "./GeneratedQuestion";
 
 @Entity()
 export class ExamDetails {
@@ -8,13 +10,16 @@ export class ExamDetails {
     id:number;
 
     @OneToOne(type => Exam ,exam=>exam.examDetails)
-    exams:Exam[];
+    exam:Exam;
 
     @Column({length:1024})
     type:string;
-    /*
-    @ManyToOne(type1 => User,user=>user.examDetails)
-    user:Applicant;
-    */
+
+    @ManyToOne(type => User,user=>user.examDetails)
+    user:User;
+
+    @OneToMany(type1 => GeneratedQuestion,generatedQuestion=>generatedQuestion.examDetails)
+    generatedQuestions:GeneratedQuestion[];
+
 
 }

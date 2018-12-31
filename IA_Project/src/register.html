@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <script src="/javascript/jquery.js"></script>
+    <script src="/javascript/login_register.js"></script>
+    <link rel="stylesheet" type="text/css" href="/style.css">
+</head>
+
+<body>
+    <div class="main-section2">
+        <div class="login-section">
+            <h2>Register</h2>
+            <div class="login-middle">
+                <form id="form">
+                    <input type="text" placeholder="First Name" id="fname">
+                    <input type="text" placeholder="Last Name" id="lname">
+                    <input type="text" placeholder="Phone Number" id="phone">
+                    <input type="number" placeholder="Age" id="age">
+                    <input type="password" placeholder="Password" id="pass">
+                    <input type="text" placeholder="Email" id="email">
+                    <input type="text" placeholder="Cv" id="cv">
+                </form>
+                <input type="radio" value="HR" name="type"><label>HR</label>
+                <input type="radio" value="Candidate" name="type"><label>Candidate</label>
+            </div>
+            <div class="login-bottom">
+                <div class="login-left">
+                    <a href="/">Have account</a>
+                </div>
+                <div class="login-right">
+                    <form>
+                        <input type="submit" value="Register" id="regbtn" onclick="validateSignup()">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
