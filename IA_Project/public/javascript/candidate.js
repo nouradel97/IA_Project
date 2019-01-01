@@ -23,9 +23,9 @@ $(document).ready(function () {
     $('#myRequests').click(function () {
 
         let table = "<table id='table1' class='container'>"
-            + "<th>HR</th>"
             + "<th>Application</th>" +
-            "<th>Link</th>";
+            "<th>Link</th>"
+            +"</thead><tbody id='tbodyy'></tbody></table>";
 
         $.ajax({
             url: "/getSubmissions",
@@ -34,21 +34,22 @@ $(document).ready(function () {
             contentType: 'application/json; charset=utf-8',
             success: (data) => {
 
-                for (var i = 0; i < data.length; i++) {
-                    table += "<tr>"
-                        + "<td>" + data[i].HR + "</td>"
-                        + "<td>" + data[i].Application + "</td>"
-                        + "<td>" + data[i].exam + "</td>"
-                        + "<td style='text-align: center;'>"
-                        + "<button id='ch1'>reg</button>"
-                        + "</td>"
+                console.log(data);
+                for (var i in data) {
+
+                    let row = "<tr>"
+                        + "<td>" + data[i].positionId.description + "</td>"
+                        + "<td>" + data[i].isRejected + "</td>"
+                        + "<td><button id='ch1' value='"+data.positionId.id +"'>"+ data[i].isRejected +"</button></td>"
                         + "</tr>";
+                    alert(row);
+                    $('#tbodyy').append(row);
                 }
             }
         });
-        table += "</table>";
-        $('#AllApplications').html(table);
-        $('#myRequests').show();
+
+        $('#allApplications').empty();
+        $('#allApplications').append(table);
     });
 
 
@@ -66,38 +67,27 @@ $(document).ready(function () {
             url: "/getAllPositions",
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
-            success: (data) => {
-
-                console.log(data);
+            success: function(data) {
                 for (var i = 0; i < data.length; i++) {
 
-                    console.log(data[i]);
                     let row = "<tr>"
-                        + "<td>" + data[i].id + "</td>"
-                        + "<td>" + data[i].description + "</td>"
-                        + "<td style='text-align: center;'>"
-                        + "<button id='ch1'>Request</button>"
-                        + "</td>"
+                        +"<td>" + data[i].hr + "</td>"
+                        +"<td>" + data[i].description + "</td>"
+                        + "<td><button id='ch1' value='"+ data[i].id +"'>Request</button></td>"
                         + "</tr>";
-                    ('#tbbody').append(row);
+                    $('#tbbody').append(row);
                 }
-
             }
         });
-        alert(table);
+
+        $('#allApplications').empty();
         $('#allApplications').append(table);
 
 
-        $('#table1  >tbody').on('click', "#ch1", function () {
+        $('#table1  >tbody').on('click', '#ch1', function () {
 
             var data = $(this).val();
-            $.post({
-                url: '/makeRequest',
-                dataType: 'json',
-                data: JSON.stringify(data),
-                contentType: 'application/json; charset=utf-8',
-            });
-
+            $.post( "/makeRequest", { id: data});
             $(this).closest('tr').remove();
         });
 

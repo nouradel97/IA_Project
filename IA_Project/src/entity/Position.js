@@ -15,7 +15,11 @@ var Position = /** @class */ (function () {
     function Position() {
     }
     __decorate([
-        typeorm_1.PrimaryColumn(),
+        typeorm_1.PrimaryGeneratedColumn(),
+        __metadata("design:type", Number)
+    ], Position.prototype, "id", void 0);
+    __decorate([
+        typeorm_1.Column(),
         __metadata("design:type", String)
     ], Position.prototype, "description", void 0);
     __decorate([

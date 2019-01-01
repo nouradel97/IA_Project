@@ -15,19 +15,24 @@ function viewInfo(req, res) {
     })
 }
 
-function getAllPositions(req, res) {
+async function getMyRequests(req, res) {
 
-    const rRepo = typeorm.getRepository(Position);
+    const uRepo = typeorm.getRepository(User);
+    var user = await uRepo.findOne(req.session.email);
 
-    rRepo.find().then(async (positions) => {
-        res.send(JSON.stringify(positions));
-    });
+    const repo = typeorm.getRepository(PositionRequest);
+    var requests = await repo.find({where: {user: user} ,relations: ["positionId","user"]});
+    var requestedPos = await repo.createQueryBuilder('requestedPos')
+        .innerJoinAndSelect('requestedPos.positionId', 'positionId').getMany();
+
+    console.log('yes');
+    res.send(JSON.stringify(requestedPos));
 }
 
 function makeRequest(req, res) {
 
     var email = req.session.email;
-    var positionId = req.body.pos;
+    var positionId = req.body.id;
 
     const uRepo = typeorm.getRepository(User);
     const pRepo = typeorm.getRepository(Position);
@@ -39,11 +44,12 @@ function makeRequest(req, res) {
 
             var request = new PositionRequest();
             request.positionId = postion;
+            request.isRequested = true;
             request.user = user;
             rpRepo.save(request);
 
-        })
-    })
+        });
+    });
 }
 
 function startExam(req, res){
@@ -63,4 +69,4 @@ function startExam(req, res){
     })
 }
 
-module.exports = { makeRequest, viewInfo, startExam, getAllPositions}
+module.exports = { makeRequest,getMyRequests, viewInfo, startExam}

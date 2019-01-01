@@ -3,6 +3,11 @@ const express = require('express');
 const path = require('path');
 let app = express();
 var session = require('express-session');
+var Position = require('./entity/Position');
+
+var candidateController = require('./controllers/CandidateController')
+var positionController = require('./controllers/PosititonController');
+var User = require('./entity/User');
 
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
@@ -24,30 +29,51 @@ app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 
 const login_signup = require('./controllers/login-signup');
-const createExam=require('./controllers/createExam');
+const createExam = require('./controllers/createExam');
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+app.post('/getInfo', function (req,res) {
+    candidateController.viewInfo(req,res);
+});
+
+app.post('/getAllPositions', function (req,res) {
+    positionController.getAllPositions(req,res);
+});
+
+app.post('/getPositionHr', function (req,res) {
+    positionController.getPositionHr(req,res);
+});
+
+app.post('/makeRequest', function (req,res) {
+    candidateController.makeRequest(req,res);
+});
+
+app.post('/getSubmissions', function (req,res) {
+    candidateController.getMyRequests(req,res);
+});
+
 app.get('/', function(req, res, next) {
     res.sendFile(path.join(__dirname, '/login.html'));
 });
 
 app.get('/hr-home', function(req, res, next) {
-    res.sendFile(path.join(__dirname, '/hr-home.html'));
+    res.sendFile(path.join(__dirname, '/HR.html'));
 });
 
 app.get('/register', function(req, res, next) {
     res.sendFile(path.join(__dirname, '/register.html'));
 });
 
-app.get('/home', function (req, res) {
-    res.render('home-page', { email:"lol"});
-});
 app.post('/login', function (req, res) {
     login_signup.login(req,res);
+});
+
+app.get('/home', function (req, res) {
+    res.sendFile(path.join(__dirname, '/candidate.html'));
 });
 
 app.post('/register', function (req, res) {
@@ -83,7 +109,6 @@ typeorm.createConnection().then(async (connection) => {
     app.listen(3000, function () {
         console.log("server is running up !!");
     });
-
 });
 
 module.exports = {app};
