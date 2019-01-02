@@ -1,7 +1,8 @@
-import {Entity, PrimaryColumn, Column, OneToMany} from "typeorm";
+import {PrimaryColumn, Column, OneToMany, Entity, TableInheritance, Unique} from "typeorm";
 import {ExamDetails} from "./ExamDetails";
 
 @Entity()
+@TableInheritance({column: {type: "varchar", name: "type"}})
 export abstract class User {
 
     @PrimaryColumn()
@@ -12,6 +13,9 @@ export abstract class User {
 
     @Column()
     lastName: string = "";
+
+    @Column()
+    username: string = "";
 
     @Column()
     age: number = 12;
@@ -25,15 +29,7 @@ export abstract class User {
     @Column()
     cv: string = "";
 
-    @Column()
-    isApproved: boolean = false;
-
-
     @OneToMany(type =>ExamDetails,examDetails=> examDetails.user)
     examDetails:ExamDetails[];
-
-
-    @Column({default: ''})
-    type: string = "";
 
 }

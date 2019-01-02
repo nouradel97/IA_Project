@@ -1,16 +1,8 @@
-import {Column, Entity, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn} from "typeorm";
-import {HR_Account} from "./HR_Account";
+import {Entity, PrimaryColumn} from "typeorm";
 
 @Entity()
 export class Position {
 
-    @PrimaryGeneratedColumn()
-    id: number;
-
-    @Column()
+    @PrimaryColumn()
     description: String;
-
-    @ManyToOne(type => HR_Account, hr => hr.positions)
-    hr : HR_Account;
-
 }

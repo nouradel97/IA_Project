@@ -5,9 +5,10 @@ function validateSignup() {
     var pass_confirm = document.forms['form1']['pass_confirm'].value;
     var fname = document.forms['form1']['fname'].value;
     var lname = document.forms['form1']['lname'].value;
+    var username = document.forms['form1']['username'].value;
     var age = document.forms['form1']['age'].value;
 
-    if(email === "" || passsword === "" || lname === "" || fname === "" || age === ""){
+    if(email === "" || passsword === "" || lname === "" || fname === "" || age === "" || username === ""){
         alert('something error!!, try again');
         return false;
     }
@@ -59,6 +60,7 @@ $(document).ready(function () {
             'password': $('#pass').val(),
             'firstName': $('#fname').val(),
             'lastName': $('#lname').val(),
+            'username': $('#username').val(),
             'age': $('#age').val(),
             'phoneNumber': $('#phone').val(),
             'cv': $('#cv').val(),

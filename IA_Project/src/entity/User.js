@@ -16,12 +16,11 @@ var User = /** @class */ (function () {
         this.email = "";
         this.firstName = "";
         this.lastName = "";
+        this.username = "";
         this.age = 12;
         this.phoneNumber = 123456;
         this.password = "";
         this.cv = "";
-        this.isApproved = false;
-        this.type = "";
     }
     __decorate([
         typeorm_1.PrimaryColumn(),
@@ -35,6 +34,10 @@ var User = /** @class */ (function () {
         typeorm_1.Column(),
         __metadata("design:type", String)
     ], User.prototype, "lastName", void 0);
+    __decorate([
+        typeorm_1.Column(),
+        __metadata("design:type", String)
+    ], User.prototype, "username", void 0);
     __decorate([
         typeorm_1.Column(),
         __metadata("design:type", Number)
@@ -52,19 +55,12 @@ var User = /** @class */ (function () {
         __metadata("design:type", String)
     ], User.prototype, "cv", void 0);
     __decorate([
-        typeorm_1.Column(),
-        __metadata("design:type", Boolean)
-    ], User.prototype, "isApproved", void 0);
-    __decorate([
         typeorm_1.OneToMany(function (type) { return ExamDetails_1.ExamDetails; }, function (examDetails) { return examDetails.user; }),
         __metadata("design:type", Array)
     ], User.prototype, "examDetails", void 0);
-    __decorate([
-        typeorm_1.Column({ default: '' }),
-        __metadata("design:type", String)
-    ], User.prototype, "type", void 0);
     User = __decorate([
-        typeorm_1.Entity()
+        typeorm_1.Entity(),
+        typeorm_1.TableInheritance({ column: { type: "varchar", name: "type" } })
     ], User);
     return User;
 }());

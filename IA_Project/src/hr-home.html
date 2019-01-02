@@ -2,9 +2,30 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>HR Home</title>
+    <title>HR Control</title>
+    <script src="javascript/jquery.js"></script>
+    <script src="javascript/HR.js"></script>
+    <link rel="stylesheet" type="text/css" href="/style.css">
 </head>
 <body>
+<div id="hrBody">
+    <button id="approvedApplications">Approved applications</button>
+    <button id="addPosition">Add Position</button>
+    <table id="ApplicationTable" border='1' style="width:100%">
+        <thead>
+            <tr>
+                <th colspan="4">Request</th>
+                <th>Position</th>
+            </tr>
+        </thead>
+        <tbody id="ApplicationTBody">
 
+        </tbody>
+    </table>
+</div>
+    <div id='posDiv'>
+        <table><tbody id="posTable">
+        </tbody></table>
+    </div>
 </body>
 </html>

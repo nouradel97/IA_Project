@@ -20,19 +20,17 @@ async function getMyRequests(req, res) {
     const uRepo = typeorm.getRepository(User);
     var user = await uRepo.findOne(req.session.email);
 
+    var arr = [];
     const repo = typeorm.getRepository(PositionRequest);
-    var requests = await repo.find({where: {user: user} ,relations: ["positionId","user"]});
-    var requestedPos = await repo.createQueryBuilder('requestedPos')
-        .innerJoinAndSelect('requestedPos.positionId', 'positionId').getMany();
+    var requests = await repo.find({where: {user: user} ,relations: ["positionId","exam"]});
 
-    console.log('yes');
-    res.send(JSON.stringify(requestedPos));
+    res.send(JSON.stringify(requests));
 }
 
 function makeRequest(req, res) {
 
     var email = req.session.email;
-    var positionId = req.body.id;
+    var position = req.body.id;
 
     const uRepo = typeorm.getRepository(User);
     const pRepo = typeorm.getRepository(Position);
@@ -40,11 +38,10 @@ function makeRequest(req, res) {
 
     uRepo.findOne(email).then(async (user) => {
 
-        pRepo.findOne(positionId).then(async (postion) => {
+        pRepo.findOne(position).then(async (position) => {
 
             var request = new PositionRequest();
-            request.positionId = postion;
-            request.isRequested = true;
+            request.positionId = position;
             request.user = user;
             rpRepo.save(request);
 

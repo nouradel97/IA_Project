@@ -10,22 +10,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var typeorm_1 = require("typeorm");
-var HR_Account_1 = require("./HR_Account");
 var Position = /** @class */ (function () {
     function Position() {
     }
     __decorate([
-        typeorm_1.PrimaryGeneratedColumn(),
-        __metadata("design:type", Number)
-    ], Position.prototype, "id", void 0);
-    __decorate([
-        typeorm_1.Column(),
+        typeorm_1.PrimaryColumn(),
         __metadata("design:type", String)
     ], Position.prototype, "description", void 0);
-    __decorate([
-        typeorm_1.ManyToOne(function (type) { return HR_Account_1.HR_Account; }, function (hr) { return hr.positions; }),
-        __metadata("design:type", HR_Account_1.HR_Account)
-    ], Position.prototype, "hr", void 0);
     Position = __decorate([
         typeorm_1.Entity()
     ], Position);

@@ -12,9 +12,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var typeorm_1 = require("typeorm");
 var Position_1 = require("./Position");
 var User_1 = require("./User");
+var Exam_1 = require("./Exam");
 var PositionRequest = /** @class */ (function () {
     function PositionRequest() {
-        this.isRequested = false;
         this.isRejected = false;
     }
     __decorate([
@@ -26,9 +26,10 @@ var PositionRequest = /** @class */ (function () {
         __metadata("design:type", User_1.User)
     ], PositionRequest.prototype, "user", void 0);
     __decorate([
-        typeorm_1.Column(),
-        __metadata("design:type", Boolean)
-    ], PositionRequest.prototype, "isRequested", void 0);
+        typeorm_1.OneToOne(function (type) { return Exam_1.Exam; }),
+        typeorm_1.JoinColumn(),
+        __metadata("design:type", Exam_1.Exam)
+    ], PositionRequest.prototype, "exam", void 0);
     __decorate([
         typeorm_1.Column(),
         __metadata("design:type", Boolean)

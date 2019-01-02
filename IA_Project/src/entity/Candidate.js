@@ -24,7 +24,7 @@ var Candidate = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     Candidate = __decorate([
-        typeorm_1.Entity()
+        typeorm_1.ChildEntity()
     ], Candidate);
     return Candidate;
 }(User_1.User));

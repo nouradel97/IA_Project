@@ -4,6 +4,7 @@ import {ExamDetails} from "./ExamDetails";
 
 @Entity()
 export class Exam{
+
     @PrimaryGeneratedColumn()
     id:number;
 
