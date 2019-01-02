@@ -1,6 +1,6 @@
-var HR_Account = require("../entity/HR_Account");
-var PositionRequest = require("../entity/PositionRequest");
-var Position = require("../entity/Position");
+const HR_Account = require("../entity/HR_Account").HR_Account;
+const PositionRequest = require("../entity/PositionRequest").PositionRequest;
+const Position = require("../entity/Position").Position;
 
 const typeorm = require("typeorm");
 const User = require('../entity/User').User;
@@ -8,80 +8,82 @@ var path = require('path');
 
 function viewAllRequests(req, res) {
 
-    var sessionId = req.session.id;
+    var sessionId = req.session.email;
     const uRepo = typeorm.getRepository(HR_Account);
     const rRepo = typeorm.getRepository(PositionRequest);
 
-    var positions = [];
     var requestedPositions = [];
 
-    uRepo.findOne(sessionId).then( async (user) => {
+    uRepo.findOne(sessionId, {relations: ['position']}).then(async (user) => {
 
-        for(var i=0; i<user.positions.length; i++){
-                positions.push(user.positions[i]);
+        for (var i = 0; i < user.position.length; i++) {
+            let temp = await rRepo.find({
+                where: {
+                    positionId: user.position[i].description
+                    , isRejected: 'false'
+                }, relations: ["positionId", "user"]
+            });
+            requestedPositions.push(temp);
+
+
+            res.send({'data': JSON.stringify(requestedPositions)});
         }
-
-        for(var i=0; i<positions.length; i++){
-            requestedPositions.push(rRepo.findByIds(positions), {where: {isRequested:'true', isRejected:'false'}});
-        }
-
-        res.send({'data' : JSON.stringify(requestedPositions)});
-    })
-
-}
-
-function disapproveRequest(req, res){
-
-    const uRepo = typeorm.getRepository(PositionRequest);
-
-    uRepo.findOne(req.body.requestedPos).then( async (requestedPos) => {
-        requestedPos.isRejected = true;
     });
 }
 
-function approveRequest(req, res){
+
+function disapproveRequest(req, res) {
 
     const uRepo = typeorm.getRepository(PositionRequest);
 
-    uRepo.findOne(req.body.requestedPos).then( async (requestedPos) => {
-        requestedPos.isRequested = false;
-    });
+    var data = req.body.data.split('_');
+
+    uRepo.findOne({where: {user: data[0], positionId: data[1]}, relations: ["positionId", "user"]})
+        .then(async (requestedPos) => {
+            requestedPos.isRejected = true;
+            uRepo.save(requestedPos);
+        });
 }
 
-function sendExam(req, res){
+function approveRequest(req, res) {
+
+
+}
+
+function sendExam(req, res) {
 
 
 }
 
 function addPosition(req, res) {
 
-    var email = req.session.email;
-    var pos = req.body.pos;
+    let pRepo = typeorm.getRepository(Position);
+    let hRepo = typeorm.getRepository(HR_Account);
 
-    const pRepo = typeorm.getRepository(Position);
-    const hRepo = typeorm.getRepository(HR_Account);
 
-    hRepo.findOne(email).then( async (user) => {
+    hRepo.findOne(email).then(async (user) => {
 
-        for(var i=0; i<user.positions.length; i++){
+        var pos = req.body.data;
+        hRepo.findOne(email, {relations: ["position"]}).then(async (user) => {
 
-            if(user.positions[i] === pos){
-                res.send({'code': 400, 'success': 'this description is already exist!!'});
-            }
-            else {
-                pos = new Position();
-                pos.hr = user;
-                pos.description = req.body.pos;
+            pRepo.findOne(pos).then(async (position) => {
 
-                pRepo.save(pos);
-                res.redirect('/hr-home');
-            }
-        }
+                if (user.position.indexOf(position) === -1) {
+                    user.position.push(position);
+                    hRepo.save(user);
+                    res.send({'code': 400});
+                } else {
+                    res.send({'code': 200});
+
+                }
+            });
+        });
     });
 }
+
 function viewAllExams(req, res) {
 
 
 }
 
-module.exports = { approveRequest, disapproveRequest, viewAllRequests, viewAllExams, sendExam };
+module.exports = {approveRequest, disapproveRequest, viewAllRequests, viewAllExams, sendExam, addPosition};

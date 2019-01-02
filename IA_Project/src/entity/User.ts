@@ -25,10 +25,6 @@ export abstract class User {
     @Column()
     cv: string = "";
 
-    @Column()
-    isApproved: boolean = false;
-
-
     @OneToMany(type =>ExamDetails,examDetails=> examDetails.user)
     examDetails:ExamDetails[];
 

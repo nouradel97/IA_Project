@@ -1,5 +1,5 @@
 var HR_Account = require("../entity/HR_Account").HR_Account;
-var Candidate =  require("../entity/Candidate").Candidate;
+var Candidate = require("../entity/Candidate").Candidate;
 
 const session = require('express-session');
 const typeorm = require("typeorm");
@@ -15,7 +15,7 @@ function login(req, res) {
             res.send({'code': 400, 'success': 'email and password does not match'});
         } else {
             req.session.email = user.email;
-            if (user.type === 'Candidate')
+            if (user instanceof Candidate)
                 res.send({'code': 200, 'success': '/home'});
             else
                 res.send({'code': 200, 'success': '/hr-home'});
@@ -27,7 +27,7 @@ function register(req, res) {
 
     const uRepo = typeorm.getRepository(User);
 
-    uRepo.findOne(req.body.email).then( async (user) => {
+    uRepo.findOne({where:{email:req.body.email, username:req.body.username}}).then( async (user) => {
 
         if(user === undefined) {
 
@@ -43,22 +43,18 @@ function register(req, res) {
             user.lastName = req.body.lastName;
             user.age = parseInt(req.body.age);
             user.cv = req.body.cv;
-            user.type = req.body.type;
 
-            uRepo.save(user);
+            if (req.body.type === 'Candidate') {
+                typeorm.getRepository(Candidate).save(user);
+            } else
+                typeorm.getRepository(HR_Account).save(user);
+
             res.send({'code': 200, 'success': '/'});
-
-        var result = new User();
-        result = await uRepo.findOne(User, user);
-
-        if(result !== undefined){
-            res.send({'message' : 'this account already exist !!'});
-        }else{
-            await uRepo.save(user);
-            res.redirect('/');
+        } else {
+            res.send({'message': 'this account already exist !!'});
         }
-        connection.close();
-    }}).catch(error => console.log('error', error));
+
+    }).catch(error => console.log('error', error));
 
 }
 

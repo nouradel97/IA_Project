@@ -1,7 +1,7 @@
 import {User} from "./User";
-import {Entity} from "typeorm";
+import {ChildEntity} from "typeorm";
 
-@Entity()
+@ChildEntity()
 export class Candidate extends User{
 
 }

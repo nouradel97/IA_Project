@@ -12,8 +12,5 @@ export class PositionRequest {
     user: User;
 
     @Column()
-    isRequested: boolean = false;
-
-    @Column()
     isRejected: boolean = false;
 }

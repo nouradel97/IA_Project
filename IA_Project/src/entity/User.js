@@ -20,7 +20,6 @@ var User = /** @class */ (function () {
         this.phoneNumber = 123456;
         this.password = "";
         this.cv = "";
-        this.isApproved = false;
         this.type = "";
     }
     __decorate([
@@ -51,10 +50,6 @@ var User = /** @class */ (function () {
         typeorm_1.Column(),
         __metadata("design:type", String)
     ], User.prototype, "cv", void 0);
-    __decorate([
-        typeorm_1.Column(),
-        __metadata("design:type", Boolean)
-    ], User.prototype, "isApproved", void 0);
     __decorate([
         typeorm_1.OneToMany(function (type) { return ExamDetails_1.ExamDetails; }, function (examDetails) { return examDetails.user; }),
         __metadata("design:type", Array)

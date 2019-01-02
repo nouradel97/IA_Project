@@ -14,7 +14,6 @@ var Position_1 = require("./Position");
 var User_1 = require("./User");
 var PositionRequest = /** @class */ (function () {
     function PositionRequest() {
-        this.isRequested = false;
         this.isRejected = false;
     }
     __decorate([
@@ -25,10 +24,6 @@ var PositionRequest = /** @class */ (function () {
         typeorm_1.ManyToOne(function (type) { return User_1.User; }, { primary: true }),
         __metadata("design:type", User_1.User)
     ], PositionRequest.prototype, "user", void 0);
-    __decorate([
-        typeorm_1.Column(),
-        __metadata("design:type", Boolean)
-    ], PositionRequest.prototype, "isRequested", void 0);
     __decorate([
         typeorm_1.Column(),
         __metadata("design:type", Boolean)

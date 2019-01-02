@@ -4,7 +4,7 @@
    "port": 3306,
    "username": "root",
    "password": "root",
-   "database": "online_tests",
+   "database": "test",
    "synchronize": true,
    "logging": false,
    "entities": [

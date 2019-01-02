@@ -1,1 +1,1 @@
-{"version":3,"file":"Candidate.js","sourceRoot":"","sources":["Candidate.ts"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;AAAA,+BAA4B;AAC5B,mCAA+B;AAG/B;IAA+B,6BAAI;IAAnC;;IAEA,CAAC;IAFY,SAAS;QADrB,gBAAM,EAAE;OACI,SAAS,CAErB;IAAD,gBAAC;CAAA,AAFD,CAA+B,WAAI,GAElC;AAFY,8BAAS"}
+{"version":3,"file":"Candidate.js","sourceRoot":"","sources":["Candidate.ts"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;AAAA,+BAA4B;AAC5B,mCAAoC;AAGpC;IAA+B,6BAAI;IAAnC;;IAEA,CAAC;IAFY,SAAS;QADrB,qBAAW,EAAE;OACD,SAAS,CAErB;IAAD,gBAAC;CAAA,AAFD,CAA+B,WAAI,GAElC;AAFY,8BAAS"}

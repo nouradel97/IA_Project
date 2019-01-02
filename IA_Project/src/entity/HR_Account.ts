@@ -1,10 +1,11 @@
-import {Column, Entity, OneToMany, PrimaryColumn} from "typeorm";
+import {ChildEntity, JoinTable, ManyToMany} from "typeorm";
 import {User} from "./User";
 import {Position} from "./Position";
 
-@Entity()
+@ChildEntity()
 export class HR_Account extends User{
 
-    @OneToMany(type => Position, position => position.hr)
-    positions: Position[];
+    @ManyToMany(type => Position)
+    @JoinTable()
+    position: Position[];
 }

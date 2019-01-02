@@ -28,11 +28,12 @@ var HR_Account = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     __decorate([
-        typeorm_1.OneToMany(function (type) { return Position_1.Position; }, function (position) { return position.hr; }),
+        typeorm_1.ManyToMany(function (type) { return Position_1.Position; }),
+        typeorm_1.JoinTable(),
         __metadata("design:type", Array)
-    ], HR_Account.prototype, "positions", void 0);
+    ], HR_Account.prototype, "position", void 0);
     HR_Account = __decorate([
-        typeorm_1.Entity()
+        typeorm_1.ChildEntity()
     ], HR_Account);
     return HR_Account;
 }(User_1.User));
