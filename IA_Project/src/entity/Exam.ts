@@ -11,7 +11,6 @@ export class Exam{
     name:string;
 
     @OneToMany(type =>Question ,question=>question.exam)
-    @JoinColumn()
     questions:Question[];
 
     @OneToOne(type => ExamDetails,examDetails=>examDetails.exam)

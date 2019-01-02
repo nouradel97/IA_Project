@@ -3,7 +3,7 @@ import {
     PrimaryGeneratedColumn,
     ManyToOne,
     ManyToMany,
-    JoinTable
+    JoinTable, Column
 } from "typeorm";
 import {Question} from"./Question";
 import {ExamDetails} from "./ExamDetails";
@@ -20,9 +20,6 @@ export class GeneratedQuestion {
     @ManyToOne(type => Question)
     question:Question;
 
-    @ManyToMany(type => Answer,answer=>answer.generatedQuestion)
-    @JoinTable()
-    answers:Answer[];
-
-
+    @Column()
+    selectedAnswer:number;
 }

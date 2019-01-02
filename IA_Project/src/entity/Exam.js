@@ -25,14 +25,11 @@ var Exam = /** @class */ (function () {
     ], Exam.prototype, "name", void 0);
     __decorate([
         typeorm_1.OneToMany(function (type) { return Question_1.Question; }, function (question) { return question.exam; }),
-        typeorm_1.JoinColumn(),
         __metadata("design:type", Array)
     ], Exam.prototype, "questions", void 0);
     __decorate([
-
-      typeorm_1.OneToOne(function (type) { return ExamDetails_1.ExamDetails; }, function (examDetails) { return examDetails.exam; }),
+        typeorm_1.OneToOne(function (type) { return ExamDetails_1.ExamDetails; }, function (examDetails) { return examDetails.exam; }),
         __metadata("design:type", ExamDetails_1.ExamDetails)
-
     ], Exam.prototype, "examDetails", void 0);
     Exam = __decorate([
         typeorm_1.Entity()

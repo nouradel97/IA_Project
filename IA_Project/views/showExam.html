@@ -2,9 +2,45 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Exam Page</title>
+    <script src="/javascript/jquery.js"></script>
+    <script src="/javascript/cexam.js"></script>
+    <link rel="stylesheet" type="text/css" href="/style.css">
+
 </head>
 <body>
 
+<div class="timer">
+    <p id="demo"></p>
+    <script>
+        var countDownDate = new Date().getTime() + 10000;
+        var x = setInterval(function () {
+            var now = new Date().getTime();
+            var distance = countDownDate - now;
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            if (hours != -1 || minutes != -1 || seconds != -1) {
+                document.getElementById("demo").innerHTML = hours + ":"
+                    + minutes + ":" + seconds;
+            }
+            if (distance < 0) {
+                clearInterval(x);
+                window.location.pathname = 'candidate';
+            }
+        }, 1000);
+    </script>
+</div>
+
+<div class="showExam">
+    <form id="form1"></form>
+
+    <form action="/candidate">
+        <div class="submit">
+        <button id="submit" >Submit Answers</button>
+        </div>
+    </form>
+</div>
 </body>
 </html>

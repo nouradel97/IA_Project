@@ -33,6 +33,7 @@ var Question = /** @class */ (function () {
     ], Question.prototype, "answerId", void 0);
     __decorate([
         typeorm_1.ManyToOne(function (type) { return Exam_1.Exam; }, function (exam) { return exam.questions; }),
+        typeorm_1.JoinColumn(),
         __metadata("design:type", Exam_1.Exam)
     ], Question.prototype, "exam", void 0);
     __decorate([

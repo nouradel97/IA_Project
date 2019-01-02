@@ -1,4 +1,14 @@
-import {Entity, Column, ManyToMany, JoinTable, ManyToOne, PrimaryGeneratedColumn, OneToOne, OneToMany} from "typeorm";
+import {
+    Entity,
+    Column,
+    ManyToMany,
+    JoinTable,
+    ManyToOne,
+    PrimaryGeneratedColumn,
+    OneToOne,
+    OneToMany,
+    JoinColumn
+} from "typeorm";
 import {Exam} from"./Exam";
 import {User} from "./User";
 import {GeneratedQuestion} from "./GeneratedQuestion";
@@ -10,6 +20,7 @@ export class ExamDetails {
     id:number;
 
     @OneToOne(type => Exam ,exam=>exam.examDetails)
+    @JoinColumn()
     exam:Exam;
 
     @Column({length:1024})
@@ -20,6 +31,5 @@ export class ExamDetails {
 
     @OneToMany(type1 => GeneratedQuestion,generatedQuestion=>generatedQuestion.examDetails)
     generatedQuestions:GeneratedQuestion[];
-
 
 }

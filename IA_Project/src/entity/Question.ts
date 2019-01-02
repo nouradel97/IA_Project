@@ -1,4 +1,4 @@
-import {Entity, PrimaryGeneratedColumn, Column,ManyToOne,OneToMany} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, JoinColumn} from "typeorm";
 import {Exam} from "./Exam";
 import {Answer} from "./Answer";
 
@@ -17,6 +17,7 @@ export class Question {
     answerId:number;
 
     @ManyToOne(type => Exam,exam=>exam.questions)
+    @JoinColumn()
     exam:Exam;
 
     @OneToMany(type => Answer,answer=>answer.question)

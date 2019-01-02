@@ -27,15 +27,14 @@ function randomInt(low, high) {
 
 async function createExam(req, res) {
     const eRepo = await typeorm.getRepository(Exam);
-    let exam = await eRepo.findOne({name: req.body.name});
+    let exam = await eRepo.findOne({name: req.body});
     let user = await typeorm.getRepository(User).findOne({email: req.session.email});
     let examDetails = new ExamDetails();
     examDetails.user = user;
     examDetails.exam = exam;
     await typeorm.getRepository(ExamDetails).save(examDetails);
-    let questions = await typeorm.getRepository(Question).find({exam: exam});
+    let questions = await typeorm.getRepository(Question).find({exam:exam});
     let chocenQuestions = getRandomElements(questions, 5);
-
 
     for (let i = 0; i < chocenQuestions.length; i++) {
         let generatedQuestion = new GeneratedQuestion();

@@ -1,16 +1,19 @@
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
+const bodyParser = require('body-parser');
+const typeorm = require('typeorm');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const login_signup = require('./controllers/login-signup');
+const createExam=require('./controllers/createExam');
+const saveExam=require('./controllers/saveExam');
+
 let app = express();
 var session = require('express-session');
 
-const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-const typeorm = require('typeorm');
-
-const logger = require('morgan');
-const cookieParser = require('cookie-parser');
 
 app.use(session({
     secret: 'I have a serious confession to make...',
@@ -22,14 +25,11 @@ app.use(express.static(path.join(__dirname, '../public')));
 // app.set('views', path.join(__dirname, '../views'));
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
-
-const login_signup = require('./controllers/login-signup');
-const createExam=require('./controllers/createExam');
-
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+
 
 app.get('/', function(req, res, next) {
     res.sendFile(path.join(__dirname, '/login.html'));
@@ -44,8 +44,9 @@ app.get('/register', function(req, res, next) {
 });
 
 app.get('/home', function (req, res) {
-    res.render('home-page', { email:"lol"});
+    res.sendFile(path.join(__dirname, '/candidate.html'));
 });
+
 app.post('/login', function (req, res) {
     login_signup.login(req,res);
 });
@@ -59,14 +60,6 @@ app.use(function(req, res, next) {
     next(createError(404));
 });
 
-app.get('/examLinks', function(req, res) {
-    res.sendFile(path.join(__dirname,'/ExamsLinks.html'));
-});
-
-app.post('/exam',function (req,res) {
-    createExam.createExam(req,res);
-});
-
 // error handler
 app.use(function(err, req, res, next) {
     // set locals, only providing error in development
@@ -78,6 +71,26 @@ app.use(function(err, req, res, next) {
     res.send('/error.html');
 });
 
+app.get('/exam', function(req, res) {
+    res.sendFile(path.join(__dirname,'../views/ExamsLinks.html'));
+});
+
+app.post('/exam',function (req,res) {
+    createExam.createExam(req,res);
+});
+
+app.get('/showExam', function(req, res) {
+    res.sendFile(path.join(__dirname, '../views/showExam.html'));
+});
+
+app.post('/showExam',function (req,res) {
+    saveExam.saveExam(req,res);
+});
+
+app.get('/candidate',function (req,res) {
+    res.sendFile(path.join(__dirname, './candidate.html'))
+});
+
 typeorm.createConnection().then(async (connection) => {
 
     app.listen(3000, function () {
@@ -87,5 +100,4 @@ typeorm.createConnection().then(async (connection) => {
 });
 
 module.exports = {app};
-//const application=require('./default');
 

@@ -12,7 +12,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var typeorm_1 = require("typeorm");
 var Question_1 = require("./Question");
 var ExamDetails_1 = require("./ExamDetails");
-var Answer_1 = require("./Answer");
 var GeneratedQuestion = /** @class */ (function () {
     function GeneratedQuestion() {
     }
@@ -29,10 +28,9 @@ var GeneratedQuestion = /** @class */ (function () {
         __metadata("design:type", Question_1.Question)
     ], GeneratedQuestion.prototype, "question", void 0);
     __decorate([
-        typeorm_1.ManyToMany(function (type) { return Answer_1.Answer; }, function (answer) { return answer.generatedQuestion; }),
-        typeorm_1.JoinTable(),
-        __metadata("design:type", Array)
-    ], GeneratedQuestion.prototype, "answers", void 0);
+        typeorm_1.Column(),
+        __metadata("design:type", Number)
+    ], GeneratedQuestion.prototype, "selectedAnswer", void 0);
     GeneratedQuestion = __decorate([
         typeorm_1.Entity()
     ], GeneratedQuestion);

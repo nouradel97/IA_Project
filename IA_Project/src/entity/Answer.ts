@@ -1,4 +1,4 @@
-import {Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne, ManyToMany} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne, ManyToMany, JoinColumn} from "typeorm";
 import {Question} from"./Question";
 import {GeneratedQuestion} from "./GeneratedQuestion";
 
@@ -15,8 +15,7 @@ export class Answer {
     isCorrect:boolean;
 
     @ManyToOne(type => Question,question => question.answers)
+    @JoinColumn()
     question:Question;
 
-    @ManyToMany(type =>GeneratedQuestion,generatedQuestion=>generatedQuestion.answers )
-    generatedQuestion:GeneratedQuestion[];
 }
